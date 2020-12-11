@@ -1,24 +1,61 @@
-# README
+## groups_users_table
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+|Column|Type|Options|
+|------|----|-------|
+|user_id|integer|null: false, foreign_key: true|
+|group_id|integer|null: false, foreign_key: true|
 
-Things you may want to cover:
+### Association
+- belongs_to :group
+- belongs_to :user
 
-* Ruby version
+## users_table
 
-* System dependencies
+|Column|Type|Options|
+|------|----|-------|
+|name|string|null: false|
+|email|string|null:false|
 
-* Configuration
+### Association
+- has_many:groups_users
+- has_many:grouts,through::groups_users
+- has_many:massages
 
-* Database creation
+### groups_table
 
-* Database initialization
+|Column|Type|Options|
+|------|----|-------|
+|name|string|null:false|
 
-* How to run the test suite
+### Association
+- has_many:groups_users
+- has_many:users,through::groups_users
+- has_many:messages
 
-* Services (job queues, cache servers, search engines, etc.)
+### messages_table
 
-* Deployment instructions
+|Column|Type|Options|
+|------|----|-------|
+|content|text|
+|image|text|
+|user_id|integer|null:false,foreign_key:true|
+|group_id|integer|null:false,foreign_key:true|
 
-* ...
+### Association
+- belongs_to :group
+- belongs_to :user
+
+### lists_table
+
+|Column|Type|Options|
+|------|----|-------|
+|lists|string|null:false|
+|user|references|null:false,foreign_key:true|
+
+### Cards
+
+|Column|Type|Options|
+|------|----|-------|
+|title|string|null:false,limit:255|
+|memo|text|limit:1000|
+|list|references|null:false, foreign_key:true|
